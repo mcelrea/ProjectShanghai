@@ -1,6 +1,5 @@
 package damien.com.States;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,11 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import damien.com.Main.Driver;
 
-public class StartScreen extends BasicGameState{
+public class Gameplay extends BasicGameState{
 
 	int stateID;
 	
-	public StartScreen(int id)
+	public Gameplay(int id)
 	{
 		stateID = id;
 	}
@@ -30,9 +29,7 @@ public class StartScreen extends BasicGameState{
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
 		
-		g.setColor(new Color(255,100,100));
-		g.drawString("Start Screen", 350, 10);
-		
+		g.drawString("gameplay", 300, 10);
 	}
 
 	@Override
@@ -42,25 +39,17 @@ public class StartScreen extends BasicGameState{
 		/* Get the keyboard, mouse input */
 		Input input = gc.getInput();
 		
-		if(input.isKeyPressed(Input.KEY_ENTER))
+		if(input.isKeyPressed(Input.KEY_ESCAPE))
 		{
-			sb.enterState(Driver.GAMEPLAYSCREEN);
+			sb.enterState(Driver.ENDSCREEN);
 		}
+		
 	}
 
 	@Override
 	public int getID() {
+		// TODO Auto-generated method stub
 		return stateID;
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
