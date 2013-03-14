@@ -38,7 +38,6 @@ public class Gameplay extends BasicGameState{
 			throws SlickException {
 		
 		player.draw(g);
-		g.drawString("Player: (" + player.x + "," + player.y + ")", 300, 10);
 	}
 
 	public void updatePlayer(GameContainer gc, StateBasedGame sb, int delta, Input input)
