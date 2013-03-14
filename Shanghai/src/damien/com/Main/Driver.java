@@ -7,6 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import damien.com.States.EndScreen;
 import damien.com.States.Gameplay;
+import damien.com.States.PauseScreen;
 import damien.com.States.StartScreen;
 
 public class Driver extends StateBasedGame{
@@ -15,6 +16,7 @@ public class Driver extends StateBasedGame{
 	public static final int STARTSCREEN = 1;
 	public static final int GAMEPLAYSCREEN = 2;
 	public static final int ENDSCREEN = 3;
+	public static final int PAUSESCREEN = 4;
 	
 	public Driver() {
 		super("Project Shanghai");
@@ -23,6 +25,7 @@ public class Driver extends StateBasedGame{
 		this.addState(new StartScreen(STARTSCREEN));
 		this.addState(new Gameplay(GAMEPLAYSCREEN));
 		this.addState(new EndScreen(ENDSCREEN));
+		this.addState(new PauseScreen(PAUSESCREEN));
 	}
 	
 	public static void main(String args[]) throws SlickException {
@@ -40,6 +43,7 @@ public class Driver extends StateBasedGame{
 		this.getState(STARTSCREEN).init(gc, this);
 		this.getState(GAMEPLAYSCREEN).init(gc, this);
 		this.getState(ENDSCREEN).init(gc, this);
+		this.getState(PAUSESCREEN).init(gc, this);
 	}
 	
 }
