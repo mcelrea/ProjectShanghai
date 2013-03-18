@@ -13,7 +13,7 @@ public class Sprite {
 	public float y;
 	public float speed;
 	float backSpeed;
-	Image image;
+	public Image image;
 	float angle;
 	float vx, vy; //velocity in x and y directions
 	public boolean alive;

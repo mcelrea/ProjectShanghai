@@ -18,7 +18,7 @@ public class Gameplay extends BasicGameState{
 	Sprite player;
 	Map map1;
 	
-	public static final float GRAVITY = 0.1f;
+	public static final float GRAVITY = 0.2f;
 	
 	public Gameplay(int id)
 	{
@@ -35,7 +35,7 @@ public class Gameplay extends BasicGameState{
 		player.speed = 0.2f;
 		player.alive = true;
 		
-		map1 = new Map(new Image("images/levelTest.jpg"));
+		map1 = new Map(new Image("images/levelTest.png"));
 		
 	}
 
@@ -55,16 +55,33 @@ public class Gameplay extends BasicGameState{
 		 */
 		if(!map1.collidingWithMap(player))
 		{
-			player.y+=GRAVITY;
+			player.y+=GRAVITY*delta;
+		}
+		
+		/* remember his location BEFORE he moves */
+		float oldx = player.x;
+		float oldy = player.y;
+		
+		if(input.isKeyDown(Input.KEY_W))
+		{
+			player.y-=0.4f*delta;
 		}
 		
 		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
 		{
 			player.moveLeft(delta);
+			if(map1.collideLRMap(player))
+			{
+				player.x = oldx;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT))
 		{
 			player.moveRight(delta);
+			if(map1.collideLRMap(player))
+			{
+				player.x = oldx;
+			}
 		}
 	}
 	
