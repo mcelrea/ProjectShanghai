@@ -9,12 +9,16 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import damien.com.Main.Driver;
+import damien.com.Map.Map;
 import damien.com.Sprites.Sprite;
 
 public class Gameplay extends BasicGameState{
 
 	int stateID;
 	Sprite player;
+	Map map1;
+	
+	public static final float GRAVITY = 0.1f;
 	
 	public Gameplay(int id)
 	{
@@ -31,17 +35,28 @@ public class Gameplay extends BasicGameState{
 		player.speed = 0.2f;
 		player.alive = true;
 		
+		map1 = new Map(new Image("images/levelTest.jpg"));
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
 		
+		map1.draw(g);
 		player.draw(g);
 	}
 
 	public void updatePlayer(GameContainer gc, StateBasedGame sb, int delta, Input input)
 			throws SlickException {
+		
+		/*
+		 * Gravity Code
+		 */
+		if(!map1.collidingWithMap(player))
+		{
+			player.y+=GRAVITY;
+		}
 		
 		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
 		{
