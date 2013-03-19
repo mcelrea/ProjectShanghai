@@ -62,7 +62,7 @@ public class Gameplay extends BasicGameState{
 		float oldx = player.x;
 		float oldy = player.y;
 		
-		if(input.isKeyDown(Input.KEY_W))
+		if(input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP))
 		{
 			player.y-=0.4f*delta;
 		}
