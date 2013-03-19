@@ -17,6 +17,7 @@ public class Driver extends StateBasedGame{
 	public static final int GAMEPLAYSCREEN = 2;
 	public static final int ENDSCREEN = 3;
 	public static final int PAUSESCREEN = 4;
+	public static AppGameContainer app;
 	
 	public Driver() {
 		super("Project Shanghai");
@@ -30,7 +31,7 @@ public class Driver extends StateBasedGame{
 	
 	public static void main(String args[]) throws SlickException {
 		
-		AppGameContainer app = new AppGameContainer(new Driver());
+		 app = new AppGameContainer(new Driver());
 		
 		/* 800x600 resolution, not in fullscreen */
 		app.setDisplayMode(800, 600, false);

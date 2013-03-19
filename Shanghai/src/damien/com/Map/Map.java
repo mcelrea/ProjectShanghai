@@ -9,7 +9,7 @@ import damien.com.Sprites.Sprite;
 
 public class Map {
 	
-	TiledMap map;
+	public TiledMap map;
 	
 	public Map(String s) throws SlickException
 	{

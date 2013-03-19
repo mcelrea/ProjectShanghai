@@ -1,6 +1,5 @@
 package damien.com.States;
 
-import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -9,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import damien.com.Camera.Camera;
 import damien.com.Main.Driver;
 import damien.com.Map.Map;
 import damien.com.Sprites.Sprite;
@@ -18,6 +18,7 @@ public class Gameplay extends BasicGameState{
 	int stateID;
 	Sprite player;
 	Map map1;
+	Camera camera;
 	
 	public static final float GRAVITY = 0.2f;
 	
@@ -33,9 +34,9 @@ public class Gameplay extends BasicGameState{
 		player = new Sprite(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
 		player.y = 300;
-		player.speed = 0.2f;
+		player.speed = 1.2f;
 		player.alive = true;
-		
+		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
 		map1 = new Map("data/map1.tmx");
 		
 	}
@@ -43,9 +44,14 @@ public class Gameplay extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
+		System.out.println(map1.map.getWidth()*48);
+		System.out.println(player.x + "player");
+		camera.drawCamera(g);
 		
+	
 		map1.draw(g);
 		player.draw(g);
+		
 	}
 
 	public void updatePlayer(GameContainer gc, StateBasedGame sb, int delta, Input input)
@@ -94,7 +100,7 @@ public class Gameplay extends BasicGameState{
 		Input input = gc.getInput();
 		
 		updatePlayer(gc, sb, delta, input);
-		
+		this.camera.translate(player.x);
 		/*
 		 * If to handle the changing of the game state
 		 */
