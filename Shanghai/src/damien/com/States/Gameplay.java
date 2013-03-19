@@ -1,5 +1,6 @@
 package damien.com.States;
 
+import org.newdawn.slick.BigImage;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -35,7 +36,7 @@ public class Gameplay extends BasicGameState{
 		player.speed = 0.2f;
 		player.alive = true;
 		
-		map1 = new Map(new Image("images/levelTest.png"));
+		map1 = new Map("data/map1.tmx");
 		
 	}
 
