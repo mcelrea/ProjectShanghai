@@ -42,19 +42,19 @@ public class Map {
 		//		"," + map.getColor(x1,  y1).getGreen() +
 		//		"," + map.getColor(x1,  y1).getBlue());
 		
-		if(map.getTileId(x1, y1, 0) >= 0 && map.getTileId(x1, y1, 0) <= 11)
+		if(map.getTileId(x1, y1, 0) >= 0 && map.getTileId(x1, y1, 0) <= 100)
 		{
 			return true;
 		}
-		if(map.getTileId(x2, y2, 0) >= 0 && map.getTileId(x2, y2, 0) <= 11)
+		if(map.getTileId(x2, y2, 0) >= 0 && map.getTileId(x2, y2, 0) <= 100)
 		{
 			return true;
 		}
-		if(map.getTileId(x3, y3, 0) >= 0 && map.getTileId(x3, y3, 0) <= 11)
+		if(map.getTileId(x3, y3, 0) >= 0 && map.getTileId(x3, y3, 0) <= 100)
 		{
 			return true;
 		}
-		if(map.getTileId(x4, y4, 0) >= 0 && map.getTileId(x4, y4, 0) <= 11)
+		if(map.getTileId(x4, y4, 0) >= 0 && map.getTileId(x4, y4, 0) <= 100)
 		{
 			return true;
 		}

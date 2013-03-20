@@ -34,7 +34,7 @@ public class Gameplay extends BasicGameState{
 		player = new Sprite(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
 		player.y = 300;
-		player.speed = 1.2f;
+		player.speed = 0.2f;
 		player.alive = true;
 		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
 		map1 = new Map("data/map1.tmx");
