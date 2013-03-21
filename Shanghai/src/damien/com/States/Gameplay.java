@@ -36,7 +36,7 @@ public class Gameplay extends BasicGameState{
 		player.y = 300;
 		player.speed = 0.2f;
 		player.alive = true;
-		player.jumpSpeed = -2.0f;
+		player.jumpSpeed = -1.25f;
 		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
 		map1 = new Map("data/map1.tmx");
 		

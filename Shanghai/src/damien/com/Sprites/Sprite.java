@@ -499,14 +499,14 @@ public class Sprite {
 			float oldx = x;
 			float oldy = y;
 			y += jumpSpeed * delta; //move character in y-direction
-			jumpSpeed += gravity * delta; //slow down jump speed
+			jumpSpeed += (gravity * delta)/40; //slow down jump speed
 			if(map.collidingWithMap(this))
 			{
 				jumping = false;
 				x = oldx;
 				y = oldy;
 				jumpSpeed = ORIGJUMPSPEED;
-			}
+			}//end if
 		}//end if
 	}//end updateJump
 
