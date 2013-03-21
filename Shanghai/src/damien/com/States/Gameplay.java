@@ -36,6 +36,7 @@ public class Gameplay extends BasicGameState{
 		player.y = 300;
 		player.speed = 0.2f;
 		player.alive = true;
+		player.jumpSpeed = -2.0f;
 		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
 		map1 = new Map("data/map1.tmx");
 		
@@ -52,6 +53,7 @@ public class Gameplay extends BasicGameState{
 		map1.draw(g);
 		player.draw(g);
 		
+		g.drawString("jumping = " + player.jumping, 300, 10);
 	}
 
 	public void updatePlayer(GameContainer gc, StateBasedGame sb, int delta, Input input)
@@ -69,10 +71,12 @@ public class Gameplay extends BasicGameState{
 		float oldx = player.x;
 		float oldy = player.y;
 		
-		if(input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP))
+		/* jump code */
+		if(input.isKeyPressed(Input.KEY_W) || input.isKeyPressed(Input.KEY_UP))
 		{
-			player.y-=0.4f*delta;
+			player.jump(delta);
 		}
+		player.updateJump(delta, GRAVITY, map1);
 		
 		if(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_LEFT))
 		{

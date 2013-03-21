@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import damien.com.Map.Map;
+
 
 public class Sprite {
 
@@ -18,11 +20,15 @@ public class Sprite {
 	float vx, vy; //velocity in x and y directions
 	public boolean alive;
 	float turnSpeed;
+	public boolean jumping;
+	public float jumpSpeed; //must be a negative value larger than gravity
+	float ORIGJUMPSPEED; //the original jump speed
 
 	//constructors
 	public Sprite(Image i)
 	{
 		image = i;
+		ORIGJUMPSPEED = 0;
 	}//end constructor Sprite
 
 	//methods
@@ -476,6 +482,33 @@ public class Sprite {
 
 		return bullet;
 	}//end shootBullet
+	
+	public void jump(int delta)
+	{
+		if(ORIGJUMPSPEED == 0)
+			ORIGJUMPSPEED = jumpSpeed;
+		
+		if(!jumping)
+			jumping = true;
+	}//end jump
+	
+	public void updateJump(int delta, float gravity, Map map)
+	{
+		if(jumping)
+		{
+			float oldx = x;
+			float oldy = y;
+			y += jumpSpeed * delta; //move character in y-direction
+			jumpSpeed += gravity * delta; //slow down jump speed
+			if(map.collidingWithMap(this))
+			{
+				jumping = false;
+				x = oldx;
+				y = oldy;
+				jumpSpeed = ORIGJUMPSPEED;
+			}
+		}//end if
+	}//end updateJump
 
 }//end  class
 
