@@ -1,5 +1,7 @@
 package damien.com.States;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,14 +13,19 @@ import org.newdawn.slick.state.StateBasedGame;
 import damien.com.Camera.Camera;
 import damien.com.Main.Driver;
 import damien.com.Map.Map;
+import damien.com.Sprites.Bullet;
+import damien.com.Sprites.Player;
 import damien.com.Sprites.Sprite;
 
 public class Gameplay extends BasicGameState{
 
 	int stateID;
-	Sprite player;
+	Player player;
 	Map map1;
 	Camera camera;
+	
+	//list of all the bullets currently on the screen
+	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
 	public static final float GRAVITY = 0.2f;
 	
@@ -31,7 +38,7 @@ public class Gameplay extends BasicGameState{
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		
-		player = new Sprite(new Image("images/Guy_Sprite.PNG"));
+		player = new Player(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
 		player.y = 300;
 		player.speed = 0.2f;
@@ -42,6 +49,18 @@ public class Gameplay extends BasicGameState{
 		
 	}
 
+	public void renderBullets(GameContainer gc, StateBasedGame sb, Graphics g)
+			throws SlickException {
+		
+		//for every bullet in the list
+		for(int i=0; i < bullets.size(); i++)
+		{
+			Bullet b = bullets.get(i); //get the current bullet
+			b.draw(g); //draw the bullet to the screen
+		}//end for
+		
+	}//end renderBullets
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
@@ -52,8 +71,10 @@ public class Gameplay extends BasicGameState{
 	
 		map1.draw(g);
 		player.draw(g);
-		
+		renderBullets(gc, sb, g);
 		g.drawString("jumping = " + player.jumping, 300, 10);
+		g.drawString("Player (" + player.x + ", " + player.y + ")", 300, 30);
+		g.drawString("Camera (" + camera.viewPort.getX() + ", " + camera.viewPort.getY() + ")", 300, 50);
 	}
 
 	public void updatePlayer(GameContainer gc, StateBasedGame sb, int delta, Input input)
@@ -94,7 +115,25 @@ public class Gameplay extends BasicGameState{
 				player.x = oldx;
 			}
 		}
+		
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		{
+			Bullet b = player.shootBullet(input.getMouseX(), input.getAbsoluteMouseY(), camera);
+			bullets.add(b); //add the new bullet to the list
+		}
 	}
+	
+	public void updateBullets(GameContainer gc, StateBasedGame sb, int delta)
+			throws SlickException {
+		
+		//for every bullet in the list
+		for(int i=0; i < bullets.size(); i++)
+		{
+			Bullet b = bullets.get(i); //get the current bullet
+			b.update(delta); //move the bullet
+		}//end for
+		
+	}//end updateBullets
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta)
@@ -104,6 +143,7 @@ public class Gameplay extends BasicGameState{
 		Input input = gc.getInput();
 		
 		updatePlayer(gc, sb, delta, input);
+		updateBullets(gc, sb, delta);
 		this.camera.translate(player.x);
 		/*
 		 * If to handle the changing of the game state

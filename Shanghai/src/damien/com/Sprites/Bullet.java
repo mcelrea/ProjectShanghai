@@ -12,5 +12,11 @@ public class Bullet extends Sprite {
 		super(i);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void update(int delta)
+	{
+		x += vx * delta * speed;
+		y += vy * delta * speed;
+	}
 
 }

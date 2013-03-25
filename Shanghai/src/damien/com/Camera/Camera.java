@@ -7,7 +7,7 @@ import damien.com.Main.Driver;
 import damien.com.Map.Map;
 
 public class Camera {
-	Rectangle viewPort;
+	public Rectangle viewPort;
 	float viewPortWidth;
 	float viewPortHeight;
 	Map map;
