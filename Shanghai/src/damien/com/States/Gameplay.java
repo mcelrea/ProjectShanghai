@@ -24,7 +24,7 @@ public class Gameplay extends BasicGameState{
 	Player player;
 	Map map1;
 	Camera camera;
-	Sound gun1;
+	Sound gun1, level1Music;
 	
 	//list of all the bullets currently on the screen
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -36,9 +36,21 @@ public class Gameplay extends BasicGameState{
 		stateID = id;
 	}
 	
+	public void enter(GameContainer gc, StateBasedGame sb)
+	{
+		if(!level1Music.playing())
+			level1Music.loop();
+	}
+	
+	public void leave(GameContainer gc, StateBasedGame sb)
+	{
+		
+	}
+	
 	public void loadSounds() throws SlickException
 	{
 		gun1 = new Sound("sounds/gunShot1.wav");
+		level1Music = new Sound("sounds/QuickSilver.wav");
 	}//end loadSounds
 	
 	@Override
