@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -23,6 +24,7 @@ public class Gameplay extends BasicGameState{
 	Player player;
 	Map map1;
 	Camera camera;
+	Sound gun1;
 	
 	//list of all the bullets currently on the screen
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -34,9 +36,16 @@ public class Gameplay extends BasicGameState{
 		stateID = id;
 	}
 	
+	public void loadSounds() throws SlickException
+	{
+		gun1 = new Sound("sounds/gunShot1.wav");
+	}//end loadSounds
+	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
+		
+		loadSounds();
 		
 		player = new Player(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
@@ -120,6 +129,7 @@ public class Gameplay extends BasicGameState{
 		{
 			Bullet b = player.shootBullet(input.getMouseX(), input.getAbsoluteMouseY(), camera);
 			bullets.add(b); //add the new bullet to the list
+			gun1.play(1.0f, 0.5f);
 		}
 	}
 	
