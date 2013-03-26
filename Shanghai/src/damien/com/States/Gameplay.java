@@ -15,6 +15,8 @@ import damien.com.Camera.Camera;
 import damien.com.Main.Driver;
 import damien.com.Map.Map;
 import damien.com.Sprites.Bullet;
+import damien.com.Sprites.Enemy;
+import damien.com.Sprites.Grounder;
 import damien.com.Sprites.Player;
 import damien.com.Sprites.Sprite;
 
@@ -26,6 +28,9 @@ public class Gameplay extends BasicGameState{
 	Camera camera;
 	Sound gun1, level1Music;
 	
+	//list of all the enemies currently in the game
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	
 	//list of all the bullets currently on the screen
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
@@ -34,6 +39,44 @@ public class Gameplay extends BasicGameState{
 	public Gameplay(int id)
 	{
 		stateID = id;
+	}
+	
+	public void initEnemies() throws SlickException
+	{
+		Enemy e = new Grounder(new Image("images/grounder.png"));
+		e.x = 1300;
+		e.y = 335;
+		e.speed = 0.05f;
+		e.alive = true;
+		enemies.add(e);//add to the list of enemies
+		
+		e = new Grounder(new Image("images/grounder.png"));
+		e.x = 1900;
+		e.y = 35;
+		e.speed = 0.05f;
+		e.alive = true;
+		enemies.add(e);//add to the list of enemies
+		
+		e = new Grounder(new Image("images/grounder.png"));
+		e.x = 400;
+		e.y = 35;
+		e.speed = 0.05f;
+		e.alive = true;
+		enemies.add(e);//add to the list of enemies
+		
+		e = new Grounder(new Image("images/grounder.png"));
+		e.x = 2100;
+		e.y = 35;
+		e.speed = 0.05f;
+		e.alive = true;
+		enemies.add(e);//add to the list of enemies
+		
+		e = new Grounder(new Image("images/grounder.png"));
+		e.x = 2500;
+		e.y = 35;
+		e.speed = 0.05f;
+		e.alive = true;
+		enemies.add(e);//add to the list of enemies
 	}
 	
 	public void enter(GameContainer gc, StateBasedGame sb)
@@ -58,6 +101,7 @@ public class Gameplay extends BasicGameState{
 			throws SlickException {
 		
 		loadSounds();
+		initEnemies();
 		
 		player = new Player(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
@@ -82,6 +126,17 @@ public class Gameplay extends BasicGameState{
 		
 	}//end renderBullets
 	
+	public void renderEnemies(GameContainer gc, StateBasedGame sb, Graphics g)
+			throws SlickException {
+		
+		//for every enemy
+		for(int i=0; i < enemies.size(); i++)
+		{
+			Enemy e = enemies.get(i);//get current enemy
+			e.draw(g);//draw the current enemy
+		}
+	}
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
@@ -93,6 +148,7 @@ public class Gameplay extends BasicGameState{
 		map1.draw(g);
 		player.draw(g);
 		renderBullets(gc, sb, g);
+		renderEnemies(gc, sb, g);
 		g.drawString("jumping = " + player.jumping, 300, 10);
 		g.drawString("Player (" + player.x + ", " + player.y + ")", 300, 30);
 		g.drawString("Camera (" + camera.viewPort.getX() + ", " + camera.viewPort.getY() + ")", 300, 50);
@@ -145,6 +201,18 @@ public class Gameplay extends BasicGameState{
 		}
 	}
 	
+	public void updateEnemies(GameContainer gc, StateBasedGame sb, int delta)
+			throws SlickException {
+		
+		//for each enemy
+		for(int i=0; i < enemies.size(); i++)
+		{
+			Enemy e = enemies.get(i); //get the current enemy
+			e.act(delta, map1); //make the enemy act
+		}//end for loop
+		
+	}//end method updateEnemies
+	
 	public void updateBullets(GameContainer gc, StateBasedGame sb, int delta)
 			throws SlickException {
 		
@@ -166,6 +234,7 @@ public class Gameplay extends BasicGameState{
 		
 		updatePlayer(gc, sb, delta, input);
 		updateBullets(gc, sb, delta);
+		updateEnemies(gc, sb, delta);
 		this.camera.translate(player.x);
 		/*
 		 * If to handle the changing of the game state
