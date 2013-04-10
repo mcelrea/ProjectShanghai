@@ -69,6 +69,7 @@ public class Gameplay extends BasicGameState{
 		e.y = 35;
 		e.speed = 0.05f;
 		e.alive = true;
+		e.health = 3;
 		enemies.add(e);//add to the list of enemies
 		/*
 		e = new Grounder(new Image("images/grounder.png"));
@@ -230,6 +231,7 @@ public class Gameplay extends BasicGameState{
 			e.y = 35;
 			e.speed = 0.05f;
 			e.alive = true;
+			e.health = 3;
 			enemies.add(e);//add to the list of enemies
 			
 			spawnNextGrounder = System.currentTimeMillis() + grounderSpawnDelay;
@@ -244,6 +246,17 @@ public class Gameplay extends BasicGameState{
 		{
 			Enemy e = enemies.get(i); //get the current enemy
 			e.act(delta, map1, enemies, player); //make the enemy act
+			
+			//if enemy collides with player
+			if(e.spriteCollision(player))
+			{
+				//if the enemy is a Grounder
+				if(e instanceof Grounder)
+				{
+					player.alive = false; //kill the player
+				}
+			}
+			
 		}//end for loop
 		
 	}//end method updateEnemies
@@ -256,6 +269,34 @@ public class Gameplay extends BasicGameState{
 		{
 			Bullet b = bullets.get(i); //get the current bullet
 			b.update(delta); //move the bullet
+			
+			//for every enemy
+			for(int j=0; j < enemies.size(); j++)
+			{
+				//get the current enemy
+				Enemy e = enemies.get(j);
+				
+				//if the bullet collides with the enemy && the bullet was not
+				//shot by the enemy
+				if(b.spriteCollision(e) && b.owner != e)
+				{
+					//subtract one health from enemy (he was shot)
+					e.health--;
+					//if the enemies health reaches less than or equal to 0
+					if(e.health <= 0)
+					{
+						enemies.remove(j); //remove the enemy from the game (it died)
+						j--; //decrement the size of the list of enemies (one died)
+						if(e instanceof Grounder)
+						{
+							((Grounder) e).explode(bullets);
+						}
+					}//end if
+					
+					bullets.remove(i); //remove the bullet from the game (it died)
+					i--; //decrement the size of the list of bullets (one died)
+				}//end if
+			}//end for
 		}//end for
 		
 	}//end updateBullets

@@ -11,6 +11,7 @@ import damien.com.States.Gameplay;
 public class Enemy extends Sprite{
 	
 	public boolean grounded = false;
+	public int health;
 	
 	public Enemy(Image i) {
 		super(i);

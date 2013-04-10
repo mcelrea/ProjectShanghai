@@ -60,5 +60,21 @@ public class Grounder extends Enemy{
 		}//end if
 		
 	}//end method draw
+	
+	public void explode(ArrayList<Bullet> bullets) throws SlickException
+	{
+		for(int i=0; i < 10; i++)
+		{
+			Bullet b = new Bullet(new Image("images/sprite_bullet.png"));
+			b.alive = true;
+			b.x = x;
+			b.y = y;
+			b.angle = i * 36;
+			b.speed = 0.4f;
+			b.vx = calcAngleMoveX(b.angle);
+			b.vy = calcAngleMoveY(b.angle);
+			bullets.add(b);
+		}//end for
+	}//end explode
 
 }//end class Grounder
