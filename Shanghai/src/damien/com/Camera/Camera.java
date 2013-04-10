@@ -25,8 +25,8 @@ public class Camera {
 	}
 	
 	public void translate(float x1){
-		System.out.print(x1<(Driver.app.getWidth()/2));
-		System.out.println(x1 -(Driver.app.getWidth()) > this.map.map.getWidth()*48);
+		//System.out.print(x1<(Driver.app.getWidth()/2));
+		//System.out.println(x1 -(Driver.app.getWidth()) > this.map.map.getWidth()*48);
 		//when to translate
 		if(x1>(Driver.app.getWidth()/2) && x1 < (this.map.map.getWidth()*48)-Driver.app.getWidth()/2)
 		this.viewPort.setX(x1);
