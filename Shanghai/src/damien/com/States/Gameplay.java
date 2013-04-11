@@ -115,8 +115,15 @@ public class Gameplay extends BasicGameState{
 		coins.add(c);//add the coin to the coin list
 		
 		c = new Sprite(new Image("images/coin.png"));
-		c.x = 3600;
-		c.y = 95;
+		c.x = 3580;
+		c.y = 105;
+		c.alive = true;
+		
+		coins.add(c);//add the coin to the coin list
+		
+		c = new Sprite(new Image("images/coin.png"));
+		c.x = 100;
+		c.y = 490;
 		c.alive = true;
 		
 		coins.add(c);//add the coin to the coin list
