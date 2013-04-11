@@ -328,6 +328,7 @@ public class Gameplay extends BasicGameState{
 				{
 					player.health -= 3; //take 3 health away from the player
 					death.play();
+					level1Music.stop();
 					sb.enterState(Driver.ENDSCREEN);
 				}
 			}
@@ -380,6 +381,7 @@ public class Gameplay extends BasicGameState{
 				if(player.health <= 0)
 				{
 					death.play();
+					level1Music.stop();
 					sb.enterState(Driver.ENDSCREEN);
 				}
 				
