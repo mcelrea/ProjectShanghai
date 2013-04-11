@@ -40,6 +40,9 @@ public class Gameplay extends BasicGameState{
 	//list of all the bullets currently on the screen
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	
+	//list of all the coins currently in the game
+	ArrayList<Sprite> coins = new ArrayList<Sprite>();
+	
 	public static final float GRAVITY = 0.2f;
 	
 	public Gameplay(int id)
@@ -88,11 +91,22 @@ public class Gameplay extends BasicGameState{
 		*/
 	}
 	
-	public void enter(GameContainer gc, StateBasedGame sb)
+	public void initCoinsLevel1() throws SlickException
+	{
+		Sprite c = new Sprite(new Image("images/coin.png"));
+		c.x = 1100;
+		c.y = 545;
+		c.alive = true;
+		
+		coins.add(c);//add the coin to the coin list
+	}
+	
+	public void enter(GameContainer gc, StateBasedGame sb) throws SlickException
 	{
 		if(!level1Music.playing())
 			level1Music.loop();
 		
+		initCoinsLevel1();
 		spawnNextGrounder = System.currentTimeMillis() + grounderSpawnDelay;
 	}
 	
@@ -148,6 +162,17 @@ public class Gameplay extends BasicGameState{
 		}
 	}
 	
+	public void renderCoins(GameContainer gc, StateBasedGame sb, Graphics g)
+			throws SlickException {
+		
+		//for every coin
+		for(int i=0; i < coins.size(); i++)
+		{
+			Sprite c = coins.get(i); //get the current coin
+			c.draw(g); //draw the current coin
+		}//end for
+	}//end renderCoins
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics g)
 			throws SlickException {
@@ -160,6 +185,7 @@ public class Gameplay extends BasicGameState{
 		player.draw(g);
 		renderBullets(gc, sb, g);
 		renderEnemies(gc, sb, g);
+		renderCoins(gc, sb, g);
 		g.drawString("jumping = " + player.jumping, 300, 10);
 		g.drawString("Player (" + player.x + ", " + player.y + ")", 300, 30);
 		g.drawString("Camera (" + camera.viewPort.getX() + ", " + camera.viewPort.getY() + ")", 300, 50);
