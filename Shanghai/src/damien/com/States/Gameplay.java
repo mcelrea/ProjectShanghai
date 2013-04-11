@@ -240,13 +240,13 @@ public class Gameplay extends BasicGameState{
 	
 	public void updateEnemies(GameContainer gc, StateBasedGame sb, int delta)
 			throws SlickException {
-		
+
 		//for each enemy
 		for(int i=0; i < enemies.size(); i++)
 		{
 			Enemy e = enemies.get(i); //get the current enemy
 			e.act(delta, map1, enemies, player); //make the enemy act
-			
+
 			//if enemy collides with player
 			if(e.spriteCollision(player))
 			{
@@ -257,9 +257,9 @@ public class Gameplay extends BasicGameState{
 					sb.enterState(Driver.ENDSCREEN);
 				}
 			}
-			
+
 		}//end for loop
-		
+
 	}//end method updateEnemies
 	
 	public void updateBullets(GameContainer gc, StateBasedGame sb, int delta)
@@ -312,7 +312,7 @@ public class Gameplay extends BasicGameState{
 			}
 		}//end for
 		
-	}//end updateBullets
+	}//end updateBulletsw
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sb, int delta)
