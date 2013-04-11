@@ -12,7 +12,7 @@ public class Player extends Sprite{
 	public Player(Image i) {
 		super(i);
 		
-		health = 3;
+		health = 300;
 	}
 
 	public Bullet shootBullet(int locx, int locy, Camera camera) throws SlickException

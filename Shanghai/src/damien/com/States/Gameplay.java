@@ -27,7 +27,7 @@ public class Gameplay extends BasicGameState{
 	Player player;
 	Map map1;
 	Camera camera;
-	Sound gun1, level1Music;
+	Sound gun1, level1Music, coinPickUp;
 	
 	Random rand = new Random();
 	
@@ -99,6 +99,27 @@ public class Gameplay extends BasicGameState{
 		c.alive = true;
 		
 		coins.add(c);//add the coin to the coin list
+		
+		c = new Sprite(new Image("images/coin.png"));
+		c.x = 4800;
+		c.y = 500;
+		c.alive = true;
+		
+		coins.add(c);//add the coin to the coin list
+		
+		c = new Sprite(new Image("images/coin.png"));
+		c.x = 4820;
+		c.y = 110;
+		c.alive = true;
+		
+		coins.add(c);//add the coin to the coin list
+		
+		c = new Sprite(new Image("images/coin.png"));
+		c.x = 3600;
+		c.y = 95;
+		c.alive = true;
+		
+		coins.add(c);//add the coin to the coin list
 	}
 	
 	public void enter(GameContainer gc, StateBasedGame sb) throws SlickException
@@ -119,6 +140,7 @@ public class Gameplay extends BasicGameState{
 	{
 		gun1 = new Sound("sounds/gunShot1.wav");
 		level1Music = new Sound("sounds/QuickSilver.wav");
+		coinPickUp = new Sound("sounds/coinPickUp.wav");
 	}//end loadSounds
 	
 	@Override
@@ -131,7 +153,7 @@ public class Gameplay extends BasicGameState{
 		player = new Player(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
 		player.y = 300;
-		player.speed = 0.2f;
+		player.speed = 1.2f;
 		player.alive = true;
 		player.jumpSpeed = -1.25f;
 		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
@@ -187,7 +209,7 @@ public class Gameplay extends BasicGameState{
 		renderEnemies(gc, sb, g);
 		renderCoins(gc, sb, g);
 		g.drawString("jumping = " + player.jumping, 300, 10);
-		g.drawString("Player (" + player.x + ", " + player.y + ")", 300, 30);
+		g.drawString("Player (" + player.x + ", " + player.y + ")", player.x, player.y-50);
 		g.drawString("Camera (" + camera.viewPort.getX() + ", " + camera.viewPort.getY() + ")", 300, 50);
 	}
 
@@ -263,6 +285,22 @@ public class Gameplay extends BasicGameState{
 			spawnNextGrounder = System.currentTimeMillis() + grounderSpawnDelay;
 		}
 	}
+	
+	public void updateCoins(GameContainer gc, StateBasedGame sb, int delta)
+			throws SlickException {
+		
+		//for every coin
+		for(int i=0; i < coins.size(); i++)
+		{
+			Sprite c = coins.get(i); //get the current coin
+			if(player.spriteCollision(c))
+			{
+				coinPickUp.play(); //play the sound
+				coins.remove(i); //kill the coin
+				i--; //subtract one from the size list
+			}//end if
+		}//end for
+	}//end updateCoins
 	
 	public void updateEnemies(GameContainer gc, StateBasedGame sb, int delta)
 			throws SlickException {
@@ -350,6 +388,7 @@ public class Gameplay extends BasicGameState{
 		updatePlayer(gc, sb, delta, input);
 		updateBullets(gc, sb, delta);
 		updateEnemies(gc, sb, delta);
+		updateCoins(gc, sb, delta);
 		
 		spawnGrounders(gc, sb, delta);
 		
