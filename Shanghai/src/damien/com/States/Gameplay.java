@@ -27,7 +27,7 @@ public class Gameplay extends BasicGameState{
 	Player player;
 	Map map1;
 	Camera camera;
-	Sound gun1, level1Music, coinPickUp;
+	Sound gun1, level1Music, coinPickUp, grounderExplode, death;
 	
 	Random rand = new Random();
 	
@@ -148,6 +148,8 @@ public class Gameplay extends BasicGameState{
 		gun1 = new Sound("sounds/gunShot1.wav");
 		level1Music = new Sound("sounds/QuickSilver.wav");
 		coinPickUp = new Sound("sounds/coinPickUp.wav");
+		grounderExplode = new Sound("sounds/grounderExplode.wav");
+		death = new Sound("sounds/death.wav");
 	}//end loadSounds
 	
 	@Override
@@ -160,7 +162,7 @@ public class Gameplay extends BasicGameState{
 		player = new Player(new Image("images/Guy_Sprite.PNG"));
 		player.x = 300;
 		player.y = 300;
-		player.speed = 1.2f;
+		player.speed = 0.2f;
 		player.alive = true;
 		player.jumpSpeed = -1.25f;
 		this.camera = new Camera(Driver.app.getHeight(), Driver.app.getHeight(),0,0,map1);
@@ -325,6 +327,7 @@ public class Gameplay extends BasicGameState{
 				if(e instanceof Grounder)
 				{
 					player.health -= 3; //take 3 health away from the player
+					death.play();
 					sb.enterState(Driver.ENDSCREEN);
 				}
 			}
@@ -362,6 +365,7 @@ public class Gameplay extends BasicGameState{
 						if(e instanceof Grounder)
 						{
 							((Grounder) e).explode(bullets);
+							grounderExplode.play();
 						}
 					}//end if
 					
@@ -375,6 +379,7 @@ public class Gameplay extends BasicGameState{
 				player.health--;
 				if(player.health <= 0)
 				{
+					death.play();
 					sb.enterState(Driver.ENDSCREEN);
 				}
 				
