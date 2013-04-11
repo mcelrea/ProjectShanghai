@@ -73,6 +73,7 @@ public class Grounder extends Enemy{
 			b.speed = 0.4f;
 			b.vx = calcAngleMoveX(b.angle);
 			b.vy = calcAngleMoveY(b.angle);
+			b.owner = this;
 			bullets.add(b);
 		}//end for
 	}//end explode

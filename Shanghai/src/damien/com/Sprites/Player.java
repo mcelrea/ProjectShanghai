@@ -6,10 +6,13 @@ import org.newdawn.slick.SlickException;
 import damien.com.Camera.Camera;
 
 public class Player extends Sprite{
+	
+	public int health;
 
 	public Player(Image i) {
 		super(i);
-		// TODO Auto-generated constructor stub
+		
+		health = 3;
 	}
 
 	public Bullet shootBullet(int locx, int locy, Camera camera) throws SlickException
@@ -23,6 +26,7 @@ public class Player extends Sprite{
 		b.vy = calcAngleMoveY(b.angle);
 		b.image.setRotation(b.angle-180);
 		b.speed = 1.0f;
+		b.owner = this;
 		b.damage = 0.5f;
 		
 		return b;

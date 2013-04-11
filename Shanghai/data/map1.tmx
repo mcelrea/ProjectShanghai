@@ -4,8 +4,8 @@
   <image source="../images/tileset.jpg" width="720" height="720"/>
  </tileset>
  <layer name="Tile Layer 1" width="102" height="13">
-  <data encoding="base64" compression="zlib">
-   eJztk9EKwyAMRWVCcRQq3Vf3s+eDhTTcMuOsyUMeDthUjL0njSGEwzFFrGjfw3EvvbwLK8C96DqZ2c+92PLhXmz6cC9XBxTt+2h7SQxUSwPPvuPF0HbytBeUMWVhHKC2dPRB54x0bt2LNPdf9PS6c4DocS7Ngq9nemnNfeT8zOjxjxP0z7fOFvIYG/ZzRsy/VaRZ8DwSW0tyo3ujIGeLbIW98Cnk+kzJ5P1G9ufKWdf+DsQXRdEk4g==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VywrDIBBFpdI02UTar/aza8CUy3SsOlG0MIsDUYOPe5zEGmO8MhU2Mnofinr5B9RLGVtgBXqvpV7yGaXGenhCJ+qlzkfKUSsnXr188kCk81xxQ79dI72s5vtbQPukZ62Z40YYcS+og55euIyRheCZvkWwDjdPS+el+/nlIVebV7zU5p5DslbKAYfEucTFWXecm9L/usRLae497uKMYBYbPFM3D+LEmnTtHmN3k7/7SIv7Pys1OXB5YBvrpiQ3nNNW5Dwje+AZeAVcbCMOxnd430XO/tHn4HgDOcutrLgUAAA=
   </data>
  </layer>
 </map>

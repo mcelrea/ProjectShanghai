@@ -253,7 +253,8 @@ public class Gameplay extends BasicGameState{
 				//if the enemy is a Grounder
 				if(e instanceof Grounder)
 				{
-					player.alive = false; //kill the player
+					player.health -= 3; //take 3 health away from the player
+					sb.enterState(Driver.ENDSCREEN);
 				}
 			}
 			
@@ -295,8 +296,20 @@ public class Gameplay extends BasicGameState{
 					
 					bullets.remove(i); //remove the bullet from the game (it died)
 					i--; //decrement the size of the list of bullets (one died)
-				}//end if
+				}//end if		
 			}//end for
+			
+			if(b.spriteCollision(player) && b.owner != player)
+			{
+				player.health--;
+				if(player.health <= 0)
+				{
+					sb.enterState(Driver.ENDSCREEN);
+				}
+				
+				bullets.remove(i); //remove the bullet from the game (it died)
+				i--; //decrement the size of the list of bullets (one died)
+			}
 		}//end for
 		
 	}//end updateBullets
