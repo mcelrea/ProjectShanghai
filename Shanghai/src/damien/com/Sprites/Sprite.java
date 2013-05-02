@@ -172,6 +172,32 @@ public class Sprite {
 		return true; //YES, collision
 
 	}//end spriteCollision
+	
+	public boolean spriteCollisionByPoint(float px, float py)
+	{
+		float left1, left2;
+		float right1, right2;
+		float top1, top2;
+		float bottom1, bottom2;
+
+		left1 = x;
+		left2 = px;
+		right1 = x + image.getWidth();
+		right2 = px;
+		top1 = y;
+		top2 = py;
+		bottom1 = y + image.getHeight();
+		bottom2 = py;
+
+		if (bottom1 < top2) return false; //no collision
+		if (top1 > bottom2) return false; //no collision
+
+		if (right1 < left2) return false; //no collision
+		if (left1 > right2) return false; //no collision
+
+		return true; //YES, collision
+
+	}//end spriteCollision
 
 	public boolean spriteCollision(AnimatedSprite other)
 	{
